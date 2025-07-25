@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SABWEAR - Premium Fashion Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-weight: 400;
+    }
+
+    header {
+      padding: 10px;
+      position: relative;
+    }
+
+    .logo {
+      animation: spinY 8s linear infinite;
+      width: 100px;
+      height: auto;
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+      transition: all 0.3s ease;
+    }
+    
+    .logo:hover {
+      animation-duration: 2s;
+      filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+    }
+
+    @keyframes spinY {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .title {
+      width: 200px;
+      height: auto;
+      filter: drop-shadow(0 2px 10px rgba(255, 255, 255, 0.1));
+      transition: all 0.3s ease;
+    }
+    
+    .title:hover {
+      transform: scale(1.02);
+      filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.2));
+    }
+
+    .menu-icon,
+    .cart-icon,
+    .search-icon {
+      width: 30px;
+      height: auto;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .menu-icon {
+      left: 10px;
+    }
+
+    .cart-icon {
+      right: 10px;
+    }
+    
+    .search-icon {
+      right: 50px;
+      width: 28px;
+      height: 28px;
+      background: none;
+      border: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: brightness(1) contrast(1);
+      opacity: 0.9;
+    }
+    
+    .search-icon:hover {
+      transform: translateY(-50%) scale(1.1);
+      filter: brightness(1.2) contrast(1.2);
+      opacity: 1;
+    }
+    
+    .search-icon:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .category {
+      background-color: #111;
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+      letter-spacing: 1px;
+    }
+
+    .category:hover {
+      background-color: #666;
+      color: #fff;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .product {
+      background-color: #111;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-3px);
+    }
+
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 4px;
+      background-color: #222;
+    }
+
+    .product-name {
+      margin: 8px 0 4px;
+      font-weight: normal;
+      font-size: 1rem;
+    }
+
+    .product-price {
+      color: #aaa;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    button {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #666;
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* القائمة الجانبية */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 250px;
+      height: 100%;
+      background-color: #111;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transition: 0.3s ease;
+      z-index: 1001;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+      color: #666;
+    }
+
+    .sidebar.show {
+      left: 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s ease;
+      z-index: 1000;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .shop-now {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #666;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .shop-now:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .landing-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 9999;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .landing-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .landing-overlay .shop-now {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #666 0%, #777 100%);
+      color: white;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 0;
+      font-size: 1.3rem;
+      font-weight: 800;
+      cursor: pointer;
+      z-index: 1;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+    
+    .landing-overlay .shop-now::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .landing-overlay .shop-now:hover {
+      background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+      color: #000;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .landing-overlay .shop-now:hover::before {
+      left: 100%;
+    }
+
+    body.loaded #landing {
+      display: none;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px 10px;
+      background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .category {
+      font-family: 'Montserrat', sans-serif;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 24px;
+      border: 2px solid transparent;
+      border-radius: 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .category:hover {
+      background: linear-gradient(135deg, #666 0%, #777 100%);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(102, 102, 102, 0.3);
+    }
+    
+    .category:hover::before {
+      left: 100%;
+    }
+    
+    .category.active {
+      background: linear-gradient(135deg, #666 0%, #777 100%);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 5px 15px rgba(102, 102, 102, 0.4);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Mobile responsive - 2 products per row */
+    @media (max-width: 768px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 20px 10px;
+      }
+      
+      .product {
+        min-width: 0;
+      }
+      
+      .product-info {
+        padding: 10px !important;
+      }
+      
+      .product-name {
+        font-size: 14px !important;
+        margin-bottom: 5px !important;
+      }
+      
+      .product-price {
+        font-size: 12px !important;
+      }
+      
+      .sale-badge {
+        top: 8px !important;
+        left: 8px !important;
+        padding: 4px 8px !important;
+        font-size: 10px !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .products {
+        gap: 8px;
+        padding: 15px 8px;
+      }
+      
+      .product-info {
+        padding: 8px !important;
+      }
+      
+      .product-name {
+        font-size: 12px !important;
+      }
+      
+      .product-price {
+        font-size: 11px !important;
+      }
+    }
+
+    .product {
+      background: #f8f8f8;
+      border-radius: 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      box-shadow: none;
+      border: none;
+    }
+    
+    .product:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    
+    .sale-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #000;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 0;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 10;
+    }
+    
+    @keyframes gradientBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes searchSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px) scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+    }
+    
+    @keyframes searchSlideOut {
+      0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px) scale(0.9);
+      }
+    }
+    
+    .size-btn:hover {
+      background: #333 !important;
+      border-color: #666 !important;
+    }
+    
+    .size-btn.selected {
+      background: #fff !important;
+      color: #000 !important;
+      border-color: #fff !important;
+    }
+    
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    
+    .product::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .product:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(102, 102, 102, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+    
+    .product:hover::after {
+      opacity: 1;
+    }
+    
+    .product:hover::before {
+      opacity: 1;
+    }
+
+    .product img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 0;
+      margin-bottom: 0;
+      flex: 1;
+      transition: all 0.4s ease;
+      filter: brightness(0.9) contrast(1.1);
+    }
+    
+    .product:hover img {
+      transform: scale(1.05);
+      filter: brightness(1) contrast(1.2);
+    }
+
+    .product-info {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .product-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .product-price {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      color: #4ecdc4;
+      margin-bottom: 0;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    
+    .product-rating {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 0;
+    }
+
+    .product button {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #666 0%, #777 100%);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .product button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .product button:hover {
+      background: linear-gradient(135deg, #777 0%, #888 100%);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(102, 102, 102, 0.4);
+    }
+    
+    .product button:hover::before {
+      left: 100%;
+    }
+    
+    .product button:active {
+      transform: translateY(0) scale(1.02);
+    }
+
+    footer {
+      background-color: #111;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      color: #ccc;
+    }
+
+    /* Search Bar Styles - Hidden */
+    .search-container {
+      display: none;
+    }
+    
+    .search-bar {
+      font-family: 'Poppins', sans-serif;
+      width: 100%;
+      padding: 15px 50px 15px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0;
+      background: linear-gradient(135deg, #222 0%, #2a2a2a 100%);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 400;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+    }
+    
+    .search-bar:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(102, 102, 102, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .search-btn {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    
+    /* Loading Animation */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+    
+    .spinner {
+      border: 4px solid #333;
+      border-top: 4px solid #666;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Product Quick View - Hidden */
+    .quick-view-btn {
+      display: none !important;
+    }
+    
+
+    
+    /* Wishlist Button - Hidden */
+    .wishlist-btn {
+      display: none !important;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .logo-title {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .logo, .title {
+        width: 80px;
+      }
+      
+      .categories {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      
+      .category {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+      }
+      
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 20px 10px;
+      }
+      
+      .search-container {
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- واجهة البداية بالصورة -->
+  <div id="landing" class="landing-overlay">
+    <img src="hero.jpg" alt="Welcome" class="landing-image" />
+    <button class="shop-now" onclick="hideLanding()">SHOP NOW</button>
+  </div>
+
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <a href="#">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-title">
+      <img src="menu.png" alt="Menu" class="menu-icon" id="menu-button">
+      <img src="logo.png" alt="Logo" class="logo">
+      <img src="title.png" alt="Title" class="title">
+      <img src="search.png" alt="Search" class="search-icon" onclick="toggleSearch()" title="Search" style="cursor: pointer;">
+      <img src="cart.png" alt="Cart" class="cart-icon" onclick="showCart()" style="cursor: pointer;">
+    </div>
+  </header>
+
+  <!-- Search Section -->
+  <div class="search-container">
+    <input type="text" class="search-bar" id="search-input" placeholder="Search for products..." onkeyup="searchProducts()">
+    <button class="search-btn" onclick="searchProducts()">🔍</button>
+  </div>
+  
+  <section class="categories">
+    <a href="#shop" class="category active" onclick="filterProducts('all')">All Products</a>
+    <a href="#tshirts" class="category" onclick="filterProducts('tshirt')">T-Shirts</a>
+    <a href="#jeans" class="category" onclick="filterProducts('jeans')">Jeans</a>
+    <a href="#accessories" class="category" onclick="filterProducts('accessories')">Accessories</a>
+  </section>
+  
+  <!-- Loading Animation -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+
+  
+  <section class="products" id="shop" style="background: transparent;">
+    
+    <!-- Product 1 - White Longsleeve -->
+    <div class="product" data-category="tshirt" data-name="Longsleeve White" style="background: transparent; transition: 0.3s; display: flex; flex-direction: column; height: 100%;">
+      <!-- Product Image -->
+      <div style="position: relative; padding: 15px; text-align: center; background: transparent;">
+        <img src="product1.jpg" alt="Longsleeve White" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto; display: block; object-fit: cover;">
+        <span class="sale-tag" style="position: absolute; top: 15px; left: 15px; background-color: #000; color: #fff; padding: 2px 6px; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; border-radius: 2px;">SALE</span>
+      </div>
+      <!-- Product Info -->
+      <div style="padding: 10px 0; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        <h3 style="font-size: 13px; font-weight: 500; margin: 0 0 5px 0; color: #fff; line-height: 1.3; font-family: 'Roboto', sans-serif;">Longsleeve White</h3>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; margin: 5px 0 10px 0;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 11px; color: #999; text-decoration: line-through;">€54.90</span>
+            <span style="font-size: 13px; font-weight: 700; color: #fff;">€44.90</span>
+          </div>
+          <button style="background: #000; color: #fff; border: none; padding: 8px 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 5px; width: auto; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease;">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Product 2 - Black Longsleeve -->
+    <div class="product" data-category="tshirt" data-name="Black Longsleeve" style="background: transparent; transition: 0.3s; display: flex; flex-direction: column; height: 100%;">
+      <!-- Product Image -->
+      <div style="position: relative; padding: 15px; text-align: center; background: transparent;">
+        <img src="product2.jpg" alt="Black Longsleeve" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto; display: block; object-fit: cover;">
+        <span class="sale-tag" style="position: absolute; top: 15px; left: 15px; background-color: #000; color: #fff; padding: 2px 6px; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; border-radius: 2px;">SALE</span>
+      </div>
+      <!-- Product Info -->
+      <div style="padding: 10px 0; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        <h3 style="font-size: 13px; font-weight: 500; margin: 0 0 5px 0; color: #fff; line-height: 1.3; font-family: 'Roboto', sans-serif;">Black Longsleeve</h3>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; margin: 5px 0 10px 0;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 11px; color: #999; text-decoration: line-through;">€54.90</span>
+            <span style="font-size: 13px; font-weight: 700; color: #fff;">€44.90</span>
+          </div>
+          <button style="background: #000; color: #fff; border: none; padding: 8px 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 5px; width: auto; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease;">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Product 3 - Black Hoodie -->
+    <div class="product" data-category="accessories" data-name="Black Hoodie" style="background: transparent; transition: 0.3s; display: flex; flex-direction: column; height: 100%;">
+      <!-- Product Image -->
+      <div style="position: relative; padding: 15px; text-align: center; background: transparent;">
+        <img src="product3.jpg" alt="Black Hoodie" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto; display: block; object-fit: cover;">
+        <span class="sale-tag" style="position: absolute; top: 15px; left: 15px; background-color: #000; color: #fff; padding: 2px 6px; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; border-radius: 2px;">SALE</span>
+      </div>
+      <!-- Product Info -->
+      <div style="padding: 10px 0; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        <h3 style="font-size: 13px; font-weight: 500; margin: 0 0 5px 0; color: #fff; line-height: 1.3; font-family: 'Roboto', sans-serif;">Black Hoodie</h3>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; margin: 5px 0 10px 0;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 11px; color: #999; text-decoration: line-through;">€64.90</span>
+            <span style="font-size: 13px; font-weight: 700; color: #fff;">€54.90</span>
+          </div>
+          <button style="background: #000; color: #fff; border: none; padding: 8px 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 5px; width: auto; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease;">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Product 4 - Black Pants -->
+    <div class="product" data-category="jeans" data-name="Black Pants" style="background: transparent; transition: 0.3s; display: flex; flex-direction: column; height: 100%;">
+      <!-- Product Image -->
+      <div style="position: relative; padding: 15px; text-align: center; background: transparent;">
+        <img src="product4.jpg" alt="Black Pants" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto; display: block; object-fit: cover;">
+        <span class="sale-tag" style="position: absolute; top: 15px; left: 15px; background-color: #000; color: #fff; padding: 2px 6px; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; border-radius: 2px;">SALE</span>
+      </div>
+      <!-- Product Info -->
+      <div style="padding: 10px 0; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        <h3 style="font-size: 13px; font-weight: 500; margin: 0 0 5px 0; color: #fff; line-height: 1.3; font-family: 'Roboto', sans-serif;">Black Pants</h3>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; margin: 5px 0 10px 0;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 11px; color: #999; text-decoration: line-through;">€49.90</span>
+            <span style="font-size: 13px; font-weight: 700; color: #fff;">€39.90</span>
+          </div>
+          <button style="background: #000; color: #fff; border: none; padding: 8px 20px; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 5px; width: auto; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease;">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+
+  <section id="about" style="padding: 20px; max-width: 600px; margin: auto; text-align: center;">
+    <h2>About Us</h2>
+    <p>SABWEAR is a modern clothing & accessories store offering high-quality products at competitive prices. Thank you for choosing us!</p>
+  </section>
+
+  <section id="contact" style="padding: 20px; max-width: 600px; margin: auto; text-align: center;">
+    <h2>Contact Us</h2>
+    <p>📞 Phone: 123456789</p>
+    <p>📧 Email: contact@sabwear.com</p>
+  </section>
+
+  <!-- Product Detail Page -->
+  <div id="product-page" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:2000; overflow-y:auto;">
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-bottom:1px solid #333;">
+      <button onclick="closeProductPage()" style="background:none; border:none; color:#fff; font-size:24px; cursor:pointer;">←</button>
+      <div style="color:#fff; font-size:18px; font-weight:bold;">WTN</div>
+      <div style="display:flex; gap:15px;">
+        <img src="search.png" alt="Search" onclick="toggleSearch()" style="width:24px; height:24px; cursor:pointer; filter:brightness(1); transition:0.3s;" onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='brightness(1)'">
+        <img src="cart.png" alt="Cart" onclick="showCart()" style="width:24px; height:24px; cursor:pointer; filter:brightness(1); transition:0.3s;" onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='brightness(1)'">
+      </div>
+    </div>
+    
+    <!-- Product Images -->
+    <div style="position:relative; background:#111;">
+      <div id="product-images" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory;">
+        <img id="main-product-img" src="" style="width:100vw; height:60vh; object-fit:cover; scroll-snap-align:start;">
+      </div>
+      <div style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px;">
+        <div style="width:60px; height:60px; border:2px solid #fff; border-radius:8px; overflow:hidden; cursor:pointer;">
+          <img id="thumb1" src="" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div style="width:60px; height:60px; border:2px solid #333; border-radius:8px; overflow:hidden; cursor:pointer;">
+          <img id="thumb2" src="" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div style="width:60px; height:60px; border:2px solid #333; border-radius:8px; overflow:hidden; cursor:pointer;">
+          <img id="thumb3" src="" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Product Info -->
+    <div style="padding:20px; color:#fff;">
+      <div style="color:#666; font-size:14px; margin-bottom:5px;">WTN</div>
+      <h1 id="product-title" style="font-size:28px; font-weight:bold; margin:0 0 10px 0;">Algeria jersey</h1>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+        <span id="product-price-display" style="font-size:24px; font-weight:bold;">DA 7,900.00</span>
+      </div>
+      <div style="font-size:14px; color:#999; margin-bottom:20px;">
+        Taxes included. <span style="text-decoration:underline; cursor:pointer;">Shipping</span> calculated at checkout.
+      </div>
+      
+      <!-- Size Selection -->
+      <div style="margin-bottom:20px;">
+        <div style="font-weight:bold; margin-bottom:10px;">SIZE</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="size-btn" data-size="S" style="padding:12px 20px; border:1px solid #333; background:#000; color:#fff; border-radius:6px; cursor:pointer; transition:0.3s;" onclick="selectSize(this)">S</button>
+          <button class="size-btn" data-size="M" style="padding:12px 20px; border:1px solid #333; background:#000; color:#fff; border-radius:6px; cursor:pointer; transition:0.3s;" onclick="selectSize(this)">M</button>
+          <button class="size-btn" data-size="L" style="padding:12px 20px; border:1px solid #333; background:#000; color:#fff; border-radius:6px; cursor:pointer; transition:0.3s;" onclick="selectSize(this)">L</button>
+          <button class="size-btn" data-size="XL" style="padding:12px 20px; border:1px solid #333; background:#000; color:#fff; border-radius:6px; cursor:pointer; transition:0.3s;" onclick="selectSize(this)">XL</button>
+          <button class="size-btn" data-size="XXL" style="padding:12px 20px; border:1px solid #333; background:#000; color:#fff; border-radius:6px; cursor:pointer; transition:0.3s;" onclick="selectSize(this)">XXL</button>
+        </div>
+      </div>
+      
+      <!-- Quantity -->
+      <div style="margin-bottom:30px;">
+        <div style="font-weight:bold; margin-bottom:10px;">Quantity</div>
+        <div style="display:flex; align-items:center; width:120px; border:1px solid #333; border-radius:6px;">
+          <button onclick="decreaseQty()" style="background:none; border:none; color:#fff; padding:10px 15px; cursor:pointer; font-size:18px;">−</button>
+          <input id="quantity" type="number" value="1" min="1" style="background:none; border:none; color:#fff; text-align:center; width:40px; font-size:16px;">
+          <button onclick="increaseQty()" style="background:none; border:none; color:#fff; padding:10px 15px; cursor:pointer; font-size:18px;">+</button>
+        </div>
+      </div>
+      
+      <!-- Size Guide -->
+      <div style="margin-bottom:30px;">
+        <span style="text-decoration:underline; cursor:pointer; color:#999;">SIZE GUIDE</span>
+      </div>
+      
+      <!-- Add to Cart Button -->
+      <button onclick="addToCartFromPage()" style="width:100%; padding:15px; background:#fff; color:#000; border:none; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer; margin-bottom:15px; transition:0.3s;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fff'">Add to cart</button>
+      
+      <!-- Buy with ShopPay -->
+      <button style="width:100%; padding:15px; background:#5a31f4; color:#fff; border:none; border-radius:6px; font-size:16px; font-weight:bold; cursor:pointer; margin-bottom:15px; display:flex; align-items:center; justify-content:center; gap:10px;">
+        Buy with <span style="background:#fff; color:#5a31f4; padding:2px 8px; border-radius:4px; font-weight:bold;">ShopPay</span>
+      </button>
+      
+      <!-- More Payment Options -->
+      <div style="text-align:center; margin-bottom:30px;">
+        <span style="text-decoration:underline; cursor:pointer; color:#999;">More payment options</span>
+      </div>
+      
+      <!-- Payment Icons -->
+      <div style="text-align:center;">
+        <div style="color:#999; margin-bottom:10px;">Secure checkout with</div>
+        <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+          <img src="https://via.placeholder.com/40x25/666/fff?text=VISA" alt="Visa" style="height:25px;">
+          <img src="https://via.placeholder.com/40x25/666/fff?text=MC" alt="Mastercard" style="height:25px;">
+          <img src="https://via.placeholder.com/40x25/666/fff?text=AMEX" alt="American Express" style="height:25px;">
+          <img src="https://via.placeholder.com/40x25/666/fff?text=PP" alt="PayPal" style="height:25px;">
+          <img src="https://via.placeholder.com/40x25/666/fff?text=GPay" alt="Google Pay" style="height:25px;">
+          <img src="https://via.placeholder.com/40x25/666/fff?text=APay" alt="Apple Pay" style="height:25px;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Newsletter Section -->
+  <section id="newsletter" style="background: linear-gradient(135deg, #333, #555); padding: 60px 20px; text-align: center; margin-top: 40px;">
+    <div style="max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #fff; font-size: 2rem; margin-bottom: 15px;">Join Our Community</h2>
+      <p style="color: #ccc; font-size: 1.1rem; margin-bottom: 30px;">Subscribe to our newsletter for early access, discounts and special offers</p>
+      <div class="newsletter-form" style="display: flex; gap: 10px; max-width: 400px; margin: 0 auto; flex-wrap: wrap;">
+        <input type="email" id="newsletter-email" placeholder="Enter your email address" style="flex: 1; padding: 12px; border: none; border-radius: 4px; font-size: 1rem; min-width: 250px;">
+        <button onclick="subscribeNewsletter()" style="background: #666; color: white; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s;" onmouseover="this.style.background='#888'" onmouseout="this.style.background='#666'">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Media Section -->
+  <section id="social" style="background: #111; padding: 40px 20px; text-align: center;">
+    <h3 style="color: #fff; margin-bottom: 20px; font-size: 1.5rem;">Follow Us on Social Media</h3>
+    <div class="social-links" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+      <a href="#" onclick="openSocialMedia('instagram')" style="display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; padding: 10px 20px; border: 1px solid #333; border-radius: 25px; transition: 0.3s;" onmouseover="this.style.borderColor='#666'; this.style.backgroundColor='#666'" onmouseout="this.style.borderColor='#333'; this.style.backgroundColor='transparent'">
+        <span style="font-size: 1.2rem;">📷</span>
+        <span>Instagram</span>
+      </a>
+      <a href="#" onclick="openSocialMedia('tiktok')" style="display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; padding: 10px 20px; border: 1px solid #333; border-radius: 25px; transition: 0.3s;" onmouseover="this.style.borderColor='#666'; this.style.backgroundColor='#666'" onmouseout="this.style.borderColor='#333'; this.style.backgroundColor='transparent'">
+        <span style="font-size: 1.2rem;">🎵</span>
+        <span>TikTok</span>
+      </a>
+      <a href="#" onclick="openSocialMedia('whatsapp')" style="display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; padding: 10px 20px; border: 1px solid #333; border-radius: 25px; transition: 0.3s;" onmouseover="this.style.borderColor='#666'; this.style.backgroundColor='#666'" onmouseout="this.style.borderColor='#333'; this.style.backgroundColor='transparent'">
+        <span style="font-size: 1.2rem;">💬</span>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Sale Banner -->
+  <section id="sale-banner" class="sale-banner" style="background: linear-gradient(45deg, #666, #888); padding: 30px 20px; text-align: center; position: relative; overflow: hidden;">
+    <div style="position: relative; z-index: 2;">
+      <h2 class="sale-title" style="color: #fff; font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Summer Sale</h2>
+      <p style="color: #fff; font-size: 1.2rem; margin-bottom: 20px;">Up to 50% off on all products</p>
+      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <button onclick="scrollToShop()" style="background: #fff; color: #666; border: none; padding: 15px 30px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Shop Now</button>
+        <button onclick="showWishlist()" style="background: transparent; color: #fff; border: 2px solid #fff; padding: 15px 30px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#fff'; this.style.color='#666'" onmouseout="this.style.background='transparent'; this.style.color='#fff'">View Wishlist</button>
+      </div>
+    </div>
+    <div style="position: absolute; top: -50%; right: -10%; width: 200px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 50%; animation: float 6s ease-in-out infinite;"></div>
+    <div style="position: absolute; bottom: -30%; left: -5%; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%; animation: float 4s ease-in-out infinite reverse;"></div>
+  </section>
+  
+  <!-- Cart Modal -->
+  <div id="cart-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2500; justify-content: center; align-items: center;">
+    <div style="background: #111; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%; position: relative; border: 2px solid #666; max-height: 80vh; overflow-y: auto;">
+      <span onclick="closeCart()" style="position: absolute; top: 15px; right: 20px; color: white; cursor: pointer; font-size: 24px; font-weight: bold;">×</span>
+      <h2 style="color: #666; margin-bottom: 20px; text-align: center;">Shopping Cart</h2>
+      <div id="cart-items" style="color: white; margin-bottom: 20px;"></div>
+      <div style="border-top: 1px solid #333; padding-top: 15px; text-align: center;">
+        <p style="color: #666; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px;">Total Items: <span id="cart-total">0</span></p>
+        <button onclick="checkout()" style="background: #666; color: white; border: none; padding: 12px 30px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1.1rem;">Checkout</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Wishlist Modal -->
+  <div id="wishlist-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2500; justify-content: center; align-items: center;">
+    <div style="background: #111; padding: 30px; border-radius: 10px; max-width: 600px; width: 90%; position: relative; border: 2px solid #666; max-height: 80vh; overflow-y: auto;">
+      <span onclick="closeWishlist()" style="position: absolute; top: 15px; right: 20px; color: white; cursor: pointer; font-size: 24px; font-weight: bold;">×</span>
+      <h2 style="color: #666; margin-bottom: 20px; text-align: center;">Wishlist</h2>
+      <div id="wishlist-items" style="color: white;"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px;">
+        <div>
+          <h4 style="color: #666; margin-bottom: 15px;">SABWEAR</h4>
+          <p style="color: #ccc; line-height: 1.6;">A modern clothing and accessories store offering high-quality products at competitive prices.</p>
+        </div>
+        <div>
+          <h4 style="color: #666; margin-bottom: 15px;">Quick Links</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="#shop" style="color: #ccc; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#666'" onmouseout="this.style.color='#ccc'">Shop</a>
+            <a href="#about" style="color: #ccc; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#666'" onmouseout="this.style.color='#ccc'">About Us</a>
+            <a href="#contact" style="color: #ccc; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#666'" onmouseout="this.style.color='#ccc'">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 style="color: #666; margin-bottom: 15px;">Customer Service</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="color: #ccc;">📞 123456789</span>
+            <span style="color: #ccc;">📧 contact@sabwear.com</span>
+            <span style="color: #ccc;">🕒 9:00 - 18:00</span>
+          </div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid #333; padding-top: 20px; text-align: center;">
+        <p style="color: #ccc; margin: 0;">© 2025 SABWEAR - All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let cartCount = 0;
+    
+    function addToCart() {
+      cartCount++;
+      updateCartDisplay();
+      showNotification('Product added to cart!', 'success');
+      console.log(`Items in cart: ${cartCount}`);
+    }
+
+    document.getElementById("menu-button").addEventListener("click", function () {
+      document.getElementById("sidebar").classList.toggle("show");
+      document.getElementById("overlay").classList.toggle("show");
+    });
+
+    document.getElementById("overlay").addEventListener("click", function () {
+      document.getElementById("sidebar").classList.remove("show");
+      this.classList.remove("show");
+    });
+    
+    function toggleSearch() {
+      const searchOverlay = document.getElementById('search-overlay');
+      if (!searchOverlay) {
+        createSearchOverlay();
+      }
+      
+      if (searchOverlay.style.display === 'none' || searchOverlay.style.display === '') {
+        searchOverlay.style.display = 'block';
+        searchOverlay.style.animation = 'fadeIn 0.3s ease';
+        setTimeout(() => {
+          document.getElementById('mobile-search-input').focus();
+        }, 100);
+      } else {
+        closeSearch();
+      }
+    }
+    
+    function createSearchOverlay() {
+      const overlay = document.createElement('div');
+      overlay.id = 'search-overlay';
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 3000;
+        display: none;
+        padding: 20px;
+        box-sizing: border-box;
+      `;
+      
+      overlay.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 15px; margin-top: 20px;">
+          <div style="flex: 1; position: relative;">
+            <input 
+              id="mobile-search-input" 
+              type="text" 
+              placeholder="Search" 
+              style="
+                width: 100%;
+                padding: 15px 50px 15px 20px;
+                background: #1a1a1a;
+                border: 1px solid #333;
+                border-radius: 8px;
+                color: #fff;
+                font-size: 16px;
+                outline: none;
+                box-sizing: border-box;
+              "
+              onkeypress="if(event.key==='Enter') performSearch()"
+            >
+            <button 
+              onclick="performSearch()" 
+              style="
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 5px;
+              "
+            >🔍</button>
+          </div>
+          <button 
+            onclick="closeSearch()" 
+            style="
+              background: none;
+              border: none;
+              color: #fff;
+              font-size: 24px;
+              cursor: pointer;
+              padding: 10px;
+            "
+          >✕</button>
+        </div>
+        <div id="search-results" style="margin-top: 20px; color: #fff;"></div>
+      `;
+      
+      document.body.appendChild(overlay);
+    }
+    
+    function closeSearch() {
+      const searchOverlay = document.getElementById('search-overlay');
+      if (searchOverlay) {
+        searchOverlay.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => {
+          searchOverlay.style.display = 'none';
+        }, 300);
+      }
+    }
+    
+    function performSearch() {
+      const searchTerm = document.getElementById('mobile-search-input').value.toLowerCase();
+      const resultsDiv = document.getElementById('search-results');
+      
+      if (!searchTerm) {
+        resultsDiv.innerHTML = '';
+        return;
+      }
+      
+      // البحث في المنتجات
+      const products = document.querySelectorAll('.product');
+      let results = [];
+      
+      products.forEach(product => {
+        const name = product.dataset.name.toLowerCase();
+        const category = product.dataset.category.toLowerCase();
+        
+        if (name.includes(searchTerm) || category.includes(searchTerm)) {
+          const img = product.querySelector('img').src;
+          const productName = product.querySelector('.product-name').textContent;
+          const price = product.querySelector('.product-price').textContent;
+          
+          results.push({
+            name: productName,
+            price: price,
+            image: img,
+            element: product
+          });
+        }
+      });
+      
+      // عرض النتائج
+      if (results.length > 0) {
+        resultsDiv.innerHTML = `
+          <div style="font-size: 18px; margin-bottom: 15px; color: #666;">Search Results (${results.length})</div>
+          ${results.map(product => `
+            <div 
+              onclick="openProductFromSearch('${product.name}', '${product.image}', '${product.price}')" 
+              style="
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 15px;
+                background: #1a1a1a;
+                border-radius: 8px;
+                margin-bottom: 10px;
+                cursor: pointer;
+                transition: 0.3s;
+              "
+              onmouseover="this.style.background='#333'"
+              onmouseout="this.style.background='#1a1a1a'"
+            >
+              <img src="${product.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+              <div>
+                <div style="font-weight: bold; margin-bottom: 5px;">${product.name}</div>
+                <div style="color: #666;">${product.price}</div>
+              </div>
+            </div>
+          `).join('')}
+        `;
+      } else {
+        resultsDiv.innerHTML = `
+          <div style="text-align: center; padding: 40px; color: #666;">
+            <div style="font-size: 48px; margin-bottom: 15px;">🔍</div>
+            <div>No products found for "${searchTerm}"</div>
+          </div>
+        `;
+      }
+    }
+    
+    function openProductFromSearch(name, image, price) {
+      closeSearch();
+      openProduct(name, image, price);
+    }
+    
+    function toggleFilter() {
+      // يمكن إضافة وظيفة الفلتر هنا لاحقاً
+      showNotification('Filter functionality coming soon!', 'info');
+    }
+    
+    // إضافة مستمع للنقر خارج صفحة المنتج لإغلاقها
+    document.getElementById("product-page").addEventListener("click", function(e) {
+      if (e.target === this) {
+        closeProductPage();
+      }
+    });
+    
+    let selectedSize = '';
+    let currentProduct = {};
+    
+    function openProduct(name, image, price) {
+      currentProduct = { name, image, price };
+      document.getElementById('product-title').textContent = name;
+      document.getElementById('main-product-img').src = image;
+      document.getElementById('thumb1').src = image;
+      document.getElementById('thumb2').src = image;
+      document.getElementById('thumb3').src = image;
+      document.getElementById('product-price-display').textContent = price;
+      document.getElementById('product-page').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductPage() {
+      document.getElementById('product-page').style.display = 'none';
+      document.body.style.overflow = 'auto';
+      selectedSize = '';
+      // Reset size buttons
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.style.background = '#000';
+        btn.style.color = '#fff';
+        btn.style.borderColor = '#333';
+      });
+    }
+    
+    function selectSize(button) {
+      // Reset all size buttons
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.style.background = '#000';
+        btn.style.color = '#fff';
+        btn.style.borderColor = '#333';
+      });
+      
+      // Highlight selected size
+      button.style.background = '#fff';
+      button.style.color = '#000';
+      button.style.borderColor = '#fff';
+      selectedSize = button.dataset.size;
+    }
+    
+    function decreaseQty() {
+      const qtyInput = document.getElementById('quantity');
+      if (qtyInput.value > 1) {
+        qtyInput.value = parseInt(qtyInput.value) - 1;
+      }
+    }
+    
+    function increaseQty() {
+      const qtyInput = document.getElementById('quantity');
+      qtyInput.value = parseInt(qtyInput.value) + 1;
+    }
+    
+    function addToCartFromPage() {
+      if (!selectedSize) {
+        showNotification('Please select a size', 'error');
+        return;
+      }
+      
+      const quantity = document.getElementById('quantity').value;
+      for(let i = 0; i < quantity; i++) {
+        addToCart();
+      }
+      
+      showNotification(`Added ${quantity} ${currentProduct.name} (Size: ${selectedSize}) to cart!`, 'success');
+    }
+    
+    function scrollToShop() {
+      const section = document.getElementById("shop");
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function hideLanding() {
+      document.body.classList.add('loaded');
+      // التمرير إلى قسم المتجر بعد إخفاء شاشة البداية
+      setTimeout(() => {
+        scrollToShop();
+      }, 500);
+    }
+    
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletter-email').value;
+      if (email && email.includes('@')) {
+        alert('Thank you! Successfully subscribed to our newsletter.');
+        document.getElementById('newsletter-email').value = '';
+      } else {
+        alert('Please enter a valid email address.');
+      }
+    }
+    
+    function openSocialMedia(platform) {
+      const links = {
+        instagram: 'https://instagram.com/sabwear',
+        tiktok: 'https://tiktok.com/@sabwear',
+        whatsapp: 'https://wa.me/123456789'
+      };
+      if (links[platform]) {
+        window.open(links[platform], '_blank');
+      }
+    }
+    
+    // إضافة تأثير التحريك للعناصر
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+      
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #666;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // تحديث عداد السلة
+    function updateCartDisplay() {
+      const cartIcon = document.querySelector('.cart-icon');
+      let cartCountElement = cartIcon.querySelector('.cart-count');
+      
+      if (!cartCountElement) {
+        cartCountElement = document.createElement('span');
+        cartCountElement.className = 'cart-count';
+        cartIcon.style.position = 'relative';
+        cartIcon.appendChild(cartCountElement);
+      }
+      
+      cartCountElement.textContent = cartCount;
+      cartCountElement.style.display = cartCount > 0 ? 'flex' : 'none';
+    }
+    
+    // وظيفة تصفية المنتجات
+    function filterProducts(category) {
+      const products = document.querySelectorAll('.product');
+      const categories = document.querySelectorAll('.category');
+      
+      // إزالة الفئة النشطة من جميع الفئات
+      categories.forEach(cat => cat.classList.remove('active'));
+      
+      // إضافة الفئة النشطة للفئة المحددة
+      event.target.classList.add('active');
+      
+      products.forEach(product => {
+        if (category === 'all' || product.dataset.category === category) {
+          product.style.display = 'block';
+          product.style.animation = 'fadeIn 0.5s ease-in';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    }
+    
+    // إضافة أنماط CSS للتأثيرات
+    const additionalStyles = document.createElement('style');
+    additionalStyles.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .category.active {
+        background-color: #666 !important;
+        color: #fff !important;
+        border-color: #666 !important;
+      }
+      
+      .product {
+        animation: fadeIn 0.5s ease-in;
+      }
+      
+      /* تحسين التصميم المتجاوب */
+      @media (max-width: 480px) {
+        .newsletter-form {
+          flex-direction: column;
+        }
+        
+        .newsletter-form input {
+          min-width: 100% !important;
+          margin-bottom: 10px;
+        }
+        
+        .social-links {
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .sale-banner h2 {
+          font-size: 2rem !important;
+        }
+      }
+    `;
+    document.head.appendChild(additionalStyles);
+    
+    // تفعيل الفئة الأولى افتراضياً
+    document.addEventListener('DOMContentLoaded', function() {
+      const firstCategory = document.querySelector('.category');
+      if (firstCategory) {
+        firstCategory.classList.add('active');
+      }
+      
+      // تحميل المفضلة من التخزين المحلي
+      loadWishlist();
+    });
+    
+    // وظيفة البحث في المنتجات
+    function searchProducts() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const products = document.querySelectorAll('.product');
+      const loading = document.getElementById('loading');
+      
+      if (searchTerm.length === 0) {
+        products.forEach(product => {
+          product.style.display = 'block';
+        });
+        return;
+      }
+      
+      // عرض تأثير التحميل
+      loading.style.display = 'block';
+      
+      setTimeout(() => {
+        let hasResults = false;
+        
+        products.forEach(product => {
+          const productName = product.dataset.name.toLowerCase();
+          if (productName.includes(searchTerm)) {
+            product.style.display = 'block';
+            product.style.animation = 'fadeIn 0.5s ease-in';
+            hasResults = true;
+          } else {
+            product.style.display = 'none';
+          }
+        });
+        
+        loading.style.display = 'none';
+        
+        if (!hasResults) {
+          showNoResults();
+        } else {
+          hideNoResults();
+        }
+      }, 800);
+    }
+    
+    // عرض رسالة عدم وجود نتائج
+    function showNoResults() {
+      let noResultsDiv = document.getElementById('no-results');
+      if (!noResultsDiv) {
+        noResultsDiv = document.createElement('div');
+        noResultsDiv.id = 'no-results';
+        noResultsDiv.style.cssText = 'text-align: center; padding: 40px; color: #666; font-size: 1.2rem;';
+        noResultsDiv.innerHTML = '<p>😔 No matching products found</p><p style="font-size: 1rem; color: #888;">Try searching with different keywords</p>';
+        document.getElementById('shop').appendChild(noResultsDiv);
+      }
+      noResultsDiv.style.display = 'block';
+    }
+    
+    function hideNoResults() {
+      const noResultsDiv = document.getElementById('no-results');
+      if (noResultsDiv) {
+        noResultsDiv.style.display = 'none';
+      }
+    }
+    
+    // وظيفة العرض السريع
+    function quickView(name, image, price) {
+      // إنشاء نافذة عرض سريع
+      const quickViewModal = document.createElement('div');
+      quickViewModal.id = 'quick-view-modal';
+      quickViewModal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease-in;
+      `;
+      
+      quickViewModal.innerHTML = `
+        <div style="background: #111; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%; position: relative; border: 2px solid #666;">
+          <span onclick="closeQuickView()" style="position: absolute; top: 15px; right: 20px; color: white; cursor: pointer; font-size: 24px; font-weight: bold;">×</span>
+          <div style="text-align: center; color: white;">
+            <img src="${image}" style="width: 100%; max-width: 300px; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;">
+            <h2 style="color: #666; margin: 15px 0;">${name}</h2>
+            <p style="font-size: 1.3rem; font-weight: bold; margin: 15px 0;">${price}</p>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+              <button onclick="openProduct('${name}', '${image}', '${price}'); closeQuickView();" style="background: #666; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: bold;">Buy Now</button>
+              <button onclick="addToCart(); closeQuickView();" style="background: #333; color: white; border: 1px solid #666; padding: 12px 24px; border-radius: 6px; cursor: pointer;">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(quickViewModal);
+      
+      // إغلاق عند النقر خارج النافذة
+      quickViewModal.addEventListener('click', function(e) {
+        if (e.target === quickViewModal) {
+          closeQuickView();
+        }
+      });
+    }
+    
+    function closeQuickView() {
+      const modal = document.getElementById('quick-view-modal');
+      if (modal) {
+        modal.remove();
+      }
+    }
+    
+    // ربط أزرار Buy Now بنظام الإشعارات
+    document.addEventListener('DOMContentLoaded', function() {
+      const buyButtons = document.querySelectorAll('.product button');
+      buyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const productName = this.closest('.product').querySelector('h3').textContent;
+          showNotification(`تمت إضافة ${productName} إلى السلة`, 'success');
+          
+          // إضافة المنتج إلى السلة
+          const product = {
+            name: productName,
+            price: this.closest('.product').querySelector('span:not(.sale-tag)').textContent,
+            image: this.closest('.product').querySelector('img').src
+          };
+          addToCart(product);
+        });
+      });
+    });
+
+    // وظيفة المفضلة
+    let wishlist = [];
+    
+    function toggleWishlist(button) {
+      const product = button.closest('.product');
+      const productName = product.dataset.name;
+      
+      if (button.classList.contains('active')) {
+        // إزالة من المفضلة
+        button.classList.remove('active');
+        button.innerHTML = '♡';
+        wishlist = wishlist.filter(item => item !== productName);
+        showNotification('Product removed from wishlist', 'info');
+      } else {
+        // إضافة للمفضلة
+        button.classList.add('active');
+        button.innerHTML = '♥';
+        wishlist.push(productName);
+        showNotification('Product added to wishlist', 'success');
+      }
+      
+      // حفظ في التخزين المحلي
+      localStorage.setItem('sabwear-wishlist', JSON.stringify(wishlist));
+    }
+    
+    function loadWishlist() {
+      const saved = localStorage.getItem('sabwear-wishlist');
+      if (saved) {
+        wishlist = JSON.parse(saved);
+        wishlist.forEach(productName => {
+          const product = document.querySelector(`[data-name="${productName}"]`);
+          if (product) {
+            const button = product.querySelector('.wishlist-btn');
+            button.classList.add('active');
+            button.innerHTML = '♥';
+          }
+        });
+      }
+    }
+    
+    // نظام الإشعارات
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#666'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 6px;
+        z-index: 3000;
+        animation: slideIn 0.3s ease-in;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      `;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+    
+    // إضافة أنماط الإشعارات
+    const notificationStyles = document.createElement('style');
+    notificationStyles.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(notificationStyles);
+    
+    // وظائف السلة
+    function showCart() {
+      const modal = document.getElementById('cart-modal');
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      
+      if (cartCount === 0) {
+        cartItems.innerHTML = '<p style="text-align: center; color: #888; padding: 40px;">🛍️ Cart is empty</p>';
+      } else {
+        cartItems.innerHTML = `
+          <div style="text-align: center; padding: 20px;">
+            <p style="color: #666; font-size: 1.1rem;">Your cart contains ${cartCount} items</p>
+            <div style="background: #222; padding: 15px; border-radius: 6px; margin: 15px 0;">
+              <p style="color: #ccc;">Carefully selected products</p>
+            </div>
+          </div>
+        `;
+      }
+      
+      cartTotal.textContent = cartCount;
+      modal.style.display = 'flex';
+    }
+    
+    function closeCart() {
+      document.getElementById('cart-modal').style.display = 'none';
+    }
+    
+    function checkout() {
+      if (cartCount === 0) {
+        showNotification('Cart is empty!', 'error');
+        return;
+      }
+      
+      showNotification('Thank you! We will contact you soon to complete the order.', 'success');
+      cartCount = 0;
+      updateCartDisplay();
+      closeCart();
+    }
+    
+    // وظائف المفضلة
+    function showWishlist() {
+      const modal = document.getElementById('wishlist-modal');
+      const wishlistItems = document.getElementById('wishlist-items');
+      
+      if (wishlist.length === 0) {
+        wishlistItems.innerHTML = '<p style="text-align: center; color: #888; padding: 40px;">♥ No products in wishlist</p>';
+      } else {
+        let itemsHtml = '';
+        wishlist.forEach(productName => {
+          const product = document.querySelector(`[data-name="${productName}"]`);
+          if (product) {
+            const img = product.querySelector('img').src;
+            const price = product.querySelector('.product-price').textContent;
+            itemsHtml += `
+              <div style="display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px solid #333; margin-bottom: 10px;">
+                <img src="${img}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+                <div style="flex: 1;">
+                  <h4 style="margin: 0 0 5px 0; color: #fff;">${productName}</h4>
+                  <p style="margin: 0; color: #666; font-weight: bold;">${price}</p>
+                </div>
+                <button onclick="removeFromWishlist('${productName}')" style="background: #f44336; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">Remove</button>
+              </div>
+            `;
+          }
+        });
+        wishlistItems.innerHTML = itemsHtml;
+      }
+      
+      modal.style.display = 'flex';
+    }
+    
+    function closeWishlist() {
+      document.getElementById('wishlist-modal').style.display = 'none';
+    }
+    
+    function removeFromWishlist(productName) {
+      const product = document.querySelector(`[data-name="${productName}"]`);
+      if (product) {
+        const button = product.querySelector('.wishlist-btn');
+        button.classList.remove('active');
+        button.innerHTML = '♡';
+      }
+      
+      wishlist = wishlist.filter(item => item !== productName);
+      localStorage.setItem('sabwear-wishlist', JSON.stringify(wishlist));
+      showNotification('Product removed from wishlist', 'info');
+      showWishlist(); // Update display
+    }
+    
+    // إغلاق النوافذ عند النقر خارجها
+    document.getElementById('cart-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeCart();
+    });
+    
+    document.getElementById('wishlist-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeWishlist();
+    });
+    
+    // تحسين وظيفة التصفية
+    const originalFilterProducts = filterProducts;
+    filterProducts = function(category) {
+      hideNoResults(); // إخفاء رسالة عدم وجود نتائج
+      document.getElementById('search-input').value = ''; // مسح البحث
+      originalFilterProducts(category);
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 6%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --popover: hsl(0, 0%, 6%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 7%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(0, 0%, 20%);
+  --input: hsl(0, 0%, 15%);
+  --primary: hsl(0, 0%, 40%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(0, 0%, 15%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(0, 0%, 15%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(60, 9%, 98%);
+  --ring: hsl(0, 0%, 20%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-poppins antialiased text-foreground;
+    background: linear-gradient(135deg, hsl(0, 0%, 4%) 0%, hsl(0, 0%, 10%) 100%);
+    margin: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+    font-weight: 400;
+  }
+}
+
+@layer utilities {
+  .font-poppins {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .font-roboto {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .logo-spin-animation {
+    animation: spinY 8s linear infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    transition: all 0.3s ease;
+  }
+  
+  .logo-spin-animation:hover {
+    animation-duration: 2s;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+  }
+
+  .category-item {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .category-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .category-item:hover::before,
+  .category-item.active::before {
+    left: 100%;
+  }
+
+  .category-item:hover,
+  .category-item.active {
+    background: linear-gradient(135deg, hsl(0, 0%, 40%) 0%, hsl(0, 0%, 47%) 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(102, 102, 102, 0.3);
+  }
+
+  .product-card {
+    background: hsl(0, 0%, 97%);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .shop-now-button {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, hsl(0, 0%, 40%) 0%, hsl(0, 0%, 47%) 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .shop-now-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  .shop-now-button:hover {
+    background: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(0, 0%, 94%) 100%);
+    color: hsl(0, 0%, 0%);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  }
+  
+  .shop-now-button:hover::before {
+    left: 100%;
+  }
+
+  .sidebar {
+    background-color: hsl(0, 0%, 7%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar a:hover {
+    background-color: hsl(0, 0%, 40%);
+  }
+
+  .cart-modal {
+    background: hsl(0, 0%, 7%);
+    transition: transform 0.3s ease;
+  }
+
+  .search-modal {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .product-button {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, hsl(0, 0%, 40%) 0%, hsl(0, 0%, 47%) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .product-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  .product-button:hover {
+    background: linear-gradient(135deg, hsl(0, 0%, 47%) 0%, hsl(0, 0%, 53%) 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(102, 102, 102, 0.4);
+  }
+  
+  .product-button:hover::before {
+    left: 100%;
+  }
+}
+
+@keyframes spinY {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
